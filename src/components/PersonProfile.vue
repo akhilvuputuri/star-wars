@@ -40,16 +40,6 @@ export default {
   components: {
     
   },
-  watch: {
-    loadedArr: {
-      deep: true,
-
-      handler() {
-        this.isProfileLoaded = this.loadedArr[0] && this.loadedArr[1] && this.loadedArr[2] && this.loadedArr[3] && this.loadedArr[4]
-        console.log("isProfileLoaded: " + this.isProfileLoaded)
-      }
-    }
-  },
   data() {
     return {
 

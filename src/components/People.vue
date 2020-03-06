@@ -7,11 +7,16 @@
         </button>
       </div>
     </div>
-    <div v-else-if="!showProfiles && !isFetching" class="person-profile">
-        <PersonProfile
-        v-bind:profile="people[selectedProfileIndex]"
-        @showAllProfiles="showAllProfiles()"
-        />
+    <div v-else-if="!showProfiles && !isFetching">
+      <PersonProfile
+      v-bind:profile="people[selectedProfileIndex]"
+      @showAllProfiles="showAllProfiles()"
+      />
+    </div>
+    <div v-else-if="!showProfiles && isFetching">
+      <LoadingProfile
+      v-bind:profile="people[selectedProfileIndex]"
+      />
     </div>
   </div>
 </template>
@@ -19,13 +24,15 @@
 <script>
 import PersonCard from "./PersonCard"
 import PersonProfile from "./PersonProfile"
+import LoadingProfile from "./LoadingProfile"
 import axios from "axios";
 
 export default {
   name: 'People',
   components: {
     PersonCard,
-    PersonProfile
+    PersonProfile,
+    LoadingProfile
   },
   data() {
     return {
