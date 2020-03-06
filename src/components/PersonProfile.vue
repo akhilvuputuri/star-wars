@@ -87,7 +87,6 @@ export default {
   },
   methods: {
     hideProfile() {
-      console.log(this.profile)
       this.$emit('showAllProfiles', true)
     }
   }

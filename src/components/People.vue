@@ -2,6 +2,9 @@
   <div>
     <div class="header">Star Wars Wiki</div>
     <div v-if="showProfiles && !isFetchingHome" class="people">
+      <div class="characters-heading">
+        Characters
+      </div>
       <div v-bind:key="person.id" v-for="(person, index) in people">
         <button class="button" v-on:click="loadProfile(index)">
           <PersonCard v-bind:person="person" />
@@ -51,7 +54,6 @@ export default {
   },
   methods: {
     showAllProfiles() {
-      console.log("Hello world")
       this.showProfiles = true
     },
     loadProfile(index) {
@@ -63,10 +65,8 @@ export default {
     },
     isCached(personIndex) {
       if (this.people[personIndex].isCached) {
-        console.log("Is cached!")
         return true
       } else {
-        console.log("NOT cached!")
         return false
       }
     },
@@ -81,7 +81,6 @@ export default {
         .then(res => {
           this.people[personIndex].homeworld = res.data.name
           fetchArr[0] = false
-          console.log(fetchArr)
           this.isFetching = fetchArr[0] || fetchArr[1] || fetchArr[2] || fetchArr[3] || fetchArr[4]
           })
         .catch(err => console.log(err))
@@ -90,7 +89,6 @@ export default {
       var films = this.people[personIndex].films
       var countFilms = films.length
       for (var i = 0; i < films.length; i++) {
-        console.log("i: " + i)
         const index = i // set index as i changes before get request data is returned
         if (films[index].includes("https")) {
           fetchArr[1] = true
@@ -101,7 +99,6 @@ export default {
             if (countFilms == 0) {
               fetchArr[1] = false
             }
-            console.log(fetchArr)
             this.isFetching = fetchArr[0] || fetchArr[1] || fetchArr[2] || fetchArr[3] || fetchArr[4]
             })
           .catch(err => console.log(err))
@@ -121,7 +118,6 @@ export default {
             if (countSpecies == 0) {
               fetchArr[2] = false
             }
-            console.log(fetchArr)
             this.isFetching = fetchArr[0] || fetchArr[1] || fetchArr[2] || fetchArr[3] || fetchArr[4]
             })
           .catch(err => console.log(err))
@@ -141,7 +137,6 @@ export default {
             if (countVehicles == 0) {
               fetchArr[3] = false
             }
-            console.log(fetchArr)
             this.isFetching = fetchArr[0] || fetchArr[1] || fetchArr[2] || fetchArr[3] || fetchArr[4]
             })
           .catch(err => console.log(err))
@@ -161,7 +156,6 @@ export default {
             if (countStarships == 0) {
               fetchArr[4] = false
             }
-            console.log(fetchArr)
             this.isFetching = fetchArr[0] || fetchArr[1] || fetchArr[2] || fetchArr[3] || fetchArr[4]
             })
           .catch(err => console.log(err))
@@ -175,7 +169,6 @@ export default {
     axios.get('https://swapi.co/api/people/')
       .then(res => {
         this.people = res.data.results
-        console.log(this.people)
         this.isFetchingHome = false
         })
       .catch(err => console.log(err))
@@ -195,6 +188,12 @@ export default {
 .people {
   width: 50%;
   margin: 0 auto;
+  & .characters-heading {
+    font-size: 40px;
+    font-weight: bold;
+    margin: 10px;
+    text-decoration: underline;
+  }
   & .button {
     color: black;
     background-color: white;
