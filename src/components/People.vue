@@ -7,7 +7,7 @@
         </button>
       </div>
     </div>
-    <div v-else-if="!showProfiles" class="person-profile">
+    <div v-else-if="!showProfiles && !isFetching" class="person-profile">
         <PersonProfile
         v-bind:profile="people[selectedProfileIndex]"
         @showAllProfiles="showAllProfiles()"
@@ -31,6 +31,7 @@ export default {
     return {
       showProfiles: true,
       people: [],
+      isFetching: false,
       selectedProfileIndex: 0,
     }
   },
@@ -56,65 +57,98 @@ export default {
       }
     },
     fetchAndCache(personIndex) {
+      this.isFetching = true
+      var fetchArr = [false, false, false, false, false]
       // homeworld
       var homeworld = this.people[personIndex].homeworld
       if (homeworld.includes("https")) {
+        fetchArr[0] = true
         axios.get(homeworld)
         .then(res => {
           this.people[personIndex].homeworld = res.data.name
+          fetchArr[0] = false
+          console.log(fetchArr)
+          this.isFetching = fetchArr[0] || fetchArr[1] || fetchArr[2] || fetchArr[3] || fetchArr[4]
           })
         .catch(err => console.log(err))
       }
       // films
       var films = this.people[personIndex].films
+      var countFilms = films.length
       for (var i = 0; i < films.length; i++) {
         console.log("i: " + i)
         const index = i // set index as i changes before get request data is returned
         if (films[index].includes("https")) {
+          fetchArr[1] = true
           axios.get(films[index])
           .then(res => {
-            console.log(res.data.title)
             films[index] = res.data.title
-            console.log(films)
+            countFilms--
+            if (countFilms == 0) {
+              fetchArr[1] = false
+            }
+            console.log(fetchArr)
+            this.isFetching = fetchArr[0] || fetchArr[1] || fetchArr[2] || fetchArr[3] || fetchArr[4]
             })
           .catch(err => console.log(err))
         }
       }
       // species
       var species = this.people[personIndex].species
+      var countSpecies = species.length
       for (var j = 0; j < species.length; j++) {
         const index = j // set index as i changes before get request data is returned
         if (species[index].includes("https")) {
+          fetchArr[2] = true
           axios.get(species[index])
           .then(res => {
             species[index] = res.data.name
-            console.log(species)
+            countSpecies--
+            if (countSpecies == 0) {
+              fetchArr[2] = false
+            }
+            console.log(fetchArr)
+            this.isFetching = fetchArr[0] || fetchArr[1] || fetchArr[2] || fetchArr[3] || fetchArr[4]
             })
           .catch(err => console.log(err))
         }
       }
       // vehicles
       var vehicles = this.people[personIndex].vehicles
+      var countVehicles = vehicles.length // count requests done for this for loop
       for (var k = 0; k < vehicles.length; k++) {
         const index = k // set index as i changes before get request data is returned
         if (vehicles[index].includes("https")) {
+          fetchArr[3] = true
           axios.get(vehicles[index])
           .then(res => {
             vehicles[index] = res.data.name
-            console.log(vehicles)
+            countVehicles--
+            if (countVehicles == 0) {
+              fetchArr[3] = false
+            }
+            console.log(fetchArr)
+            this.isFetching = fetchArr[0] || fetchArr[1] || fetchArr[2] || fetchArr[3] || fetchArr[4]
             })
           .catch(err => console.log(err))
         }
       }
       // starships
       var starships = this.people[personIndex].starships
+      var countStarships = starships.length
       for (var l = 0; l < starships.length; l++) {
         const index = l // set index as i changes before get request data is returned
         if (starships[index].includes("https")) {
+          fetchArr[4] = true
           axios.get(starships[index])
           .then(res => {
             starships[index] = res.data.name
-            console.log(starships)
+            countStarships--
+            if (countStarships == 0) {
+              fetchArr[4] = false
+            }
+            console.log(fetchArr)
+            this.isFetching = fetchArr[0] || fetchArr[1] || fetchArr[2] || fetchArr[3] || fetchArr[4]
             })
           .catch(err => console.log(err))
         }

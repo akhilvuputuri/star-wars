@@ -10,8 +10,21 @@
     <div>Birth Year: {{profile.birth_year}}</div>
     <div>Gender: {{profile.gender}}</div>
     <div>Homeworld: {{profile.homeworld}}</div>
+    <div>FILMS:</div>
     <div v-bind:key="film" v-for="film in profile.films">
         <div>{{film}}</div>
+    </div>
+    <div>SPECIES:</div>
+    <div v-bind:key="specie" v-for="specie in profile.species">
+        <div>{{specie}}</div>
+    </div>
+    <div>VEHICLES:</div>
+    <div v-bind:key="vehicle" v-for="vehicle in profile.vehicles">
+        <div>{{vehicle}}</div>
+    </div>
+    <div>STARSHIPS:</div>
+    <div v-bind:key="starship" v-for="starship in profile.starships">
+        <div>{{starship}}</div>
     </div>
     <div>
       <button v-on:click="hideProfile()">Hide Profile</button>
