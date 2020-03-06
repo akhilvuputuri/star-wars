@@ -205,9 +205,9 @@ export default {
     cursor: pointer;
   }
   & .button:hover {
-      color: #FFE81F;
-      background-color: black;
-      border: 1px solid #FFE81F;
-    }
+    color: #FFE81F;
+    background-color: black;
+    border: 1px solid #FFE81F;
+  }
 }
 </style>
