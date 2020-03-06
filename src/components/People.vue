@@ -1,11 +1,15 @@
 <template>
   <div>
-    <div v-if="showProfiles" class="people">
+    <div class="header">Star Wars Wiki</div>
+    <div v-if="showProfiles && !isFetchingHome" class="people">
       <div v-bind:key="person.id" v-for="(person, index) in people">
-        <button v-on:click="loadProfile(index)">
+        <button class="button" v-on:click="loadProfile(index)">
           <PersonCard v-bind:person="person" />
         </button>
       </div>
+    </div>
+    <div v-if="showProfiles && isFetchingHome">
+      <LoadingHome />
     </div>
     <div v-else-if="!showProfiles && !isFetching">
       <PersonProfile
@@ -25,6 +29,7 @@
 import PersonCard from "./PersonCard"
 import PersonProfile from "./PersonProfile"
 import LoadingProfile from "./LoadingProfile"
+import LoadingHome from "./LoadingHome"
 import axios from "axios";
 
 export default {
@@ -32,12 +37,14 @@ export default {
   components: {
     PersonCard,
     PersonProfile,
-    LoadingProfile
+    LoadingProfile,
+    LoadingHome
   },
   data() {
     return {
       showProfiles: true,
       people: [],
+      isFetchingHome: false,
       isFetching: false,
       selectedProfileIndex: 0,
     }
@@ -164,18 +171,43 @@ export default {
     }
   },
   created() {
+    this.isFetchingHome = true
     axios.get('https://swapi.co/api/people/')
       .then(res => {
         this.people = res.data.results
         console.log(this.people)
+        this.isFetchingHome = false
         })
       .catch(err => console.log(err))
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.header {
+  font-size: 40px;
+  font-weight: bold;
+  color: #FFE81F;
+  background-color: black;
+  padding: 10px;
+  margin-bottom: 10px;
+}
 .people {
-  display: flex;
+  width: 50%;
+  margin: 0 auto;
+  & .button {
+    color: black;
+    background-color: white;
+    font-size: 32px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+  }
+  & .button:hover {
+      color: #FFE81F;
+      background-color: black;
+      border: 1px solid #FFE81F;
+    }
 }
 </style>

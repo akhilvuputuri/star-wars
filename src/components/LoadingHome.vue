@@ -2,7 +2,7 @@
   <div class="loading-home">
     <div class="container">
       <div class="text">
-        Loading {{this.profile.name}}'s profile!
+      Loading characters!
       </div>
       <PulseLoader :color="color"/>
     </div>
@@ -13,8 +13,7 @@
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
 export default {
-  name: 'LoadingProfile',
-  props: ["profile"],
+  name: 'LoadingHome',
   components: {
     PulseLoader
   },
