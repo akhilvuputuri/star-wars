@@ -1,7 +1,21 @@
 <template>
   <div id="person-profile">
-    Person's profile
-    <button v-on:click="hideProfile()">Hide Profile</button>
+    <div>Person's profile</div>
+    <div>Name: {{profile.name}}</div>
+    <div>Height: {{profile.height}}</div>
+    <div>Mass: {{profile.mass}}</div>
+    <div>Hair Color: {{profile.hair_color}}</div>
+    <div>Skin Color: {{profile.skin_color}}</div>
+    <div>Eye Color: {{profile.eye_color}}</div>
+    <div>Birth Year: {{profile.birth_year}}</div>
+    <div>Gender: {{profile.gender}}</div>
+    <div>Homeworld: {{profile.homeworld}}</div>
+    <div v-bind:key="film" v-for="film in profile.films">
+        <div>{{film}}</div>
+    </div>
+    <div>
+      <button v-on:click="hideProfile()">Hide Profile</button>
+    </div>
   </div>
 </template>
 
@@ -12,6 +26,16 @@ export default {
   props: ["profile"],
   components: {
     
+  },
+  watch: {
+    loadedArr: {
+      deep: true,
+
+      handler() {
+        this.isProfileLoaded = this.loadedArr[0] && this.loadedArr[1] && this.loadedArr[2] && this.loadedArr[3] && this.loadedArr[4]
+        console.log("isProfileLoaded: " + this.isProfileLoaded)
+      }
+    }
   },
   data() {
     return {
