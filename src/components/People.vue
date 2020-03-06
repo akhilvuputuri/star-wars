@@ -42,9 +42,19 @@ export default {
     },
     loadProfile(index) {
       this.showProfiles = false
-      this.fetchAndCache(index)
+      if (!this.isCached(index)) {
+        this.fetchAndCache(index)
+      }
       this.selectedProfileIndex = index
-
+    },
+    isCached(personIndex) {
+      if (this.people[personIndex].isCached) {
+        console.log("Is cached!")
+        return true
+      } else {
+        console.log("NOT cached!")
+        return false
+      }
     },
     fetchAndCache(personIndex) {
       // films
@@ -101,6 +111,7 @@ export default {
           .catch(err => console.log(err))
         }
       }
+      this.people[personIndex].isCached = true
     }
   },
   created() {
