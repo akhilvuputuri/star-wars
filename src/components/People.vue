@@ -8,7 +8,11 @@
       </div>
     </div>
     <div v-else-if="!showProfiles" class="person-profile">
-        <PersonProfile v-bind:profile="people[selectedProfileIndex]" />
+        <PersonProfile
+        v-bind:profile="people[selectedProfileIndex]"
+        v-bind:showProfiles="showProfiles"
+        @showAllProfiles="showAllProfiles()"
+        />
     </div>
   </div>
 </template>
@@ -32,8 +36,11 @@ export default {
     }
   },
   methods: {
+    showAllProfiles() {
+      console.log("Hello world")
+      this.showProfiles = true
+    },
     loadProfile(index) {
-      console.log("clicked")
       this.showProfiles = false
       this.fetchAndCache(index)
       this.selectedProfileIndex = index
@@ -55,10 +62,45 @@ export default {
           .catch(err => console.log(err))
         }
       }
-      console.log(this.people[personIndex].films)
       // species
+      var species = this.people[personIndex].species
+      for (var j = 0; j < species.length; j++) {
+        const index = j // set index as i changes before get request data is returned
+        if (species[index].includes("https")) {
+          axios.get(species[index])
+          .then(res => {
+            species[index] = res.data.name
+            console.log(species)
+            })
+          .catch(err => console.log(err))
+        }
+      }
       // vehicles
+      var vehicles = this.people[personIndex].vehicles
+      for (var k = 0; k < vehicles.length; k++) {
+        const index = k // set index as i changes before get request data is returned
+        if (vehicles[index].includes("https")) {
+          axios.get(vehicles[index])
+          .then(res => {
+            vehicles[index] = res.data.name
+            console.log(vehicles)
+            })
+          .catch(err => console.log(err))
+        }
+      }
       // starships
+      var starships = this.people[personIndex].starships
+      for (var l = 0; l < starships.length; l++) {
+        const index = l // set index as i changes before get request data is returned
+        if (starships[index].includes("https")) {
+          axios.get(starships[index])
+          .then(res => {
+            starships[index] = res.data.name
+            console.log(starships)
+            })
+          .catch(err => console.log(err))
+        }
+      }
     }
   },
   created() {
