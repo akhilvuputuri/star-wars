@@ -10,7 +10,6 @@
     <div v-else-if="!showProfiles" class="person-profile">
         <PersonProfile
         v-bind:profile="people[selectedProfileIndex]"
-        v-bind:showProfiles="showProfiles"
         @showAllProfiles="showAllProfiles()"
         />
     </div>
@@ -57,6 +56,15 @@ export default {
       }
     },
     fetchAndCache(personIndex) {
+      // homeworld
+      var homeworld = this.people[personIndex].homeworld
+      if (homeworld.includes("https")) {
+        axios.get(homeworld)
+        .then(res => {
+          this.people[personIndex].homeworld = res.data.name
+          })
+        .catch(err => console.log(err))
+      }
       // films
       var films = this.people[personIndex].films
       for (var i = 0; i < films.length; i++) {

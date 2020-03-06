@@ -9,7 +9,7 @@
 
 export default {
   name: 'PersonProfile',
-  props: ["profile", "showProfiles"],
+  props: ["profile"],
   components: {
     
   },
@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     hideProfile() {
-      console.log("Trigger from profile")
+      console.log(this.profile)
       this.$emit('showAllProfiles', true)
     }
   }
