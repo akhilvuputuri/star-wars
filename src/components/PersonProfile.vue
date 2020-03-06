@@ -8,14 +8,9 @@
       <div>
         <div class="personal-information box-border">
           <div class="title">Personal Info:</div>
-          <div>Height: {{profile.height}}</div>
-          <div>Mass: {{profile.mass}}</div>
-          <div>Hair Color: {{profile.hair_color}}</div>
-          <div>Skin Color: {{profile.skin_color}}</div>
-          <div>Eye Color: {{profile.eye_color}}</div>
-          <div>Birth Year: {{profile.birth_year}}</div>
-          <div>Gender: {{profile.gender}}</div>
-          <div>Homeworld: {{profile.homeworld}}</div>
+            <div v-bind:key="index" v-for="(key, index) in profileKeys">
+              {{infoTitles[index]}}: {{profile[key]}}
+            </div>
         </div>
       </div>
       <div class="row">
@@ -82,7 +77,8 @@ export default {
   },
   data() {
     return {
-
+      profileKeys: ["height", "mass", "hair_color", "skin_color", "eye_color", "birth_year", "gender", "homeworld"],
+      infoTitles: ["Height", "Mass", "Hair Color", "Skin", "Color", "Eye Color", "Birth Year", "Gender", "Homeworld"]
     }
   },
   methods: {
