@@ -75,7 +75,7 @@ export default {
       var fetchArr = [false, false, false, false, false]
       // homeworld
       var homeworld = this.people[personIndex].homeworld
-      if (homeworld.includes("https")) {
+      if (homeworld.includes("http")) {
         fetchArr[0] = true
         axios.get(homeworld)
         .then(res => {
@@ -90,7 +90,7 @@ export default {
       var countFilms = films.length
       for (var i = 0; i < films.length; i++) {
         const index = i // set index as i changes before get request data is returned
-        if (films[index].includes("https")) {
+        if (films[index].includes("http")) {
           fetchArr[1] = true
           axios.get(films[index])
           .then(res => {
@@ -109,7 +109,7 @@ export default {
       var countSpecies = species.length
       for (var j = 0; j < species.length; j++) {
         const index = j // set index as i changes before get request data is returned
-        if (species[index].includes("https")) {
+        if (species[index].includes("http")) {
           fetchArr[2] = true
           axios.get(species[index])
           .then(res => {
@@ -128,7 +128,7 @@ export default {
       var countVehicles = vehicles.length // count requests done for this for loop
       for (var k = 0; k < vehicles.length; k++) {
         const index = k // set index as i changes before get request data is returned
-        if (vehicles[index].includes("https")) {
+        if (vehicles[index].includes("http")) {
           fetchArr[3] = true
           axios.get(vehicles[index])
           .then(res => {
@@ -147,7 +147,7 @@ export default {
       var countStarships = starships.length
       for (var l = 0; l < starships.length; l++) {
         const index = l // set index as i changes before get request data is returned
-        if (starships[index].includes("https")) {
+        if (starships[index].includes("http")) {
           fetchArr[4] = true
           axios.get(starships[index])
           .then(res => {
@@ -166,8 +166,9 @@ export default {
   },
   created() {
     this.isFetchingHome = true
-    axios.get('https://swapi.co/api/people/')
+    axios.get('https://swapi.dev/api/people/')
       .then(res => {
+        console.log(res)
         this.people = res.data.results
         this.isFetchingHome = false
         })

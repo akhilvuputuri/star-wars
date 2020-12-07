@@ -3,7 +3,7 @@
 Hosting URL: https://starwarswiki-1.firebaseapp.com/
 
 ## About
-Single-page Star Wars Wiki application built with Vue.js to view people in the Star-Wars Universe and their information. API from https://swapi.co/ is used.
+Single-page Star Wars Wiki application built with Vue.js to view people in the Star-Wars Universe and their information. API from https://swapi.dev/ is used.
 
 ## Features
 - Lazy loading of fields in profile that require API calls to reduce initial home page loading time
