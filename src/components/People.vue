@@ -53,6 +53,13 @@ export default {
     }
   },
   methods: {
+    httpToHttps(url) {
+      if (url.includes("https")) {
+        return url
+      } else {
+        return url.replace("http", "https")
+      }
+    },
     showAllProfiles() {
       this.showProfiles = true
     },
@@ -77,7 +84,7 @@ export default {
       var homeworld = this.people[personIndex].homeworld
       if (homeworld.includes("http")) {
         fetchArr[0] = true
-        axios.get(homeworld)
+        axios.get(this.httpToHttps(homeworld))
         .then(res => {
           this.people[personIndex].homeworld = res.data.name
           fetchArr[0] = false
@@ -92,7 +99,7 @@ export default {
         const index = i // set index as i changes before get request data is returned
         if (films[index].includes("http")) {
           fetchArr[1] = true
-          axios.get(films[index])
+          axios.get(this.httpToHttps(films[index]))
           .then(res => {
             films[index] = res.data.title
             countFilms--
@@ -111,7 +118,7 @@ export default {
         const index = j // set index as i changes before get request data is returned
         if (species[index].includes("http")) {
           fetchArr[2] = true
-          axios.get(species[index])
+          axios.get(this.httpToHttps(species[index]))
           .then(res => {
             species[index] = res.data.name
             countSpecies--
@@ -130,7 +137,7 @@ export default {
         const index = k // set index as i changes before get request data is returned
         if (vehicles[index].includes("http")) {
           fetchArr[3] = true
-          axios.get(vehicles[index])
+          axios.get(this.httpToHttps(vehicles[index]))
           .then(res => {
             vehicles[index] = res.data.name
             countVehicles--
@@ -149,7 +156,7 @@ export default {
         const index = l // set index as i changes before get request data is returned
         if (starships[index].includes("http")) {
           fetchArr[4] = true
-          axios.get(starships[index])
+          axios.get(this.httpToHttps(starships[index]))
           .then(res => {
             starships[index] = res.data.name
             countStarships--
